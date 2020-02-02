@@ -1,0 +1,17 @@
+{
+  "name": "parser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --max-http-header-size 35000 index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jsdom": "^16.0.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5",
+    "xml2js": "^0.4.23"
+  }
+}
