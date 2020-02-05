@@ -67,6 +67,7 @@ async function load() {
 
 async function loadUrl(options = {}) {
 
+  // using requestPure cause (maybe) request-promise aborts on ESOCKETTIMEOUT 
   return new Promise((resolve, reject) => {
     requestPure(Object.assign({
       headers: {
