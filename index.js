@@ -14,6 +14,7 @@ const parser = new xml2js.Parser(/* options */);
 const imageRoot = path.resolve(__dirname, 'download/image');
 const productRoot = path.resolve(__dirname, 'download/product');
 
+// require('request-debug')(requestPure);
 fs.ensureDirSync(imageRoot);
 fs.ensureDirSync(productRoot);
 
@@ -98,7 +99,9 @@ async function loadUrl(options = {}) {
 }
 
 function parse(productPage) {
-  const document = new JSDOM(productPage).window.document;
+  const dom = new JSDOM(productPage);
+  const window = dom.window;
+  const document = window.document;
 
   let product = {};
 
@@ -116,6 +119,10 @@ function parse(productPage) {
   
   product.guid = parseGuid(document);
   
+  // trying to avoid "out of memory"
+  // doesn't actually work, but maybe helps
+  window.close();
+
   return product;
 }
 
