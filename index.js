@@ -107,9 +107,13 @@ function parse(productPage) {
   product.code = +document.querySelector('[data-product-param="code"]').innerHTML;
   product.price = parsePrice(document);
   product.images = parseImages(document);
-  product.description = document.querySelector('[itemprop="description"]').innerHTML.replace(/.*<\/h2>/ims, '');
+  product.description = document.querySelector('[itemprop="description"]').querySelector('p').textContent;
 
   product.characteristics = parseCharacteristics(document);
+  
+  product.rating = parseRating(document);
+  
+  product.guid = parseGuid(document);
   
   return product;
 }
@@ -187,5 +191,15 @@ function parseBreadcrumb(document) {
 
 }
 
+function parseRating(document) {
+  let ratingElem = document.querySelector('[itemprop="ratingValue"]');
+  if (!ratingElem) return null;
+  return ratingElem.textContent;
+}
+
+function parseGuid(document) {
+  let productGuidContainerEl = document.getElementById('product-page');
+  return productGuidContainerEl.dataset.id;
+}
+
 load();
- 
